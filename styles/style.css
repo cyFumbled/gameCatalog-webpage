@@ -9,6 +9,13 @@
     --tertiary: #2dee33;   
 }
 
+/* Fonts */
+
+@font-face {
+    font-family: timesNewRoman;
+    src: url(../fonts/timesNewRoman.ttf);
+}
+
 /* Animations */
 
 @keyframes growOnHover {
@@ -19,8 +26,6 @@
 		height: 100px ;
 	}
 }
-
-
 
 /* Header */
 
@@ -39,7 +44,10 @@
     display: inline-block;
 
     margin: auto;
+    padding: 0 60px;
 
+    line-height: 1.2rem;
+    font-size: 0.8rem;
     color: var(--primary);
     text-align: center;
 }
@@ -84,6 +92,7 @@
 #gameListHeader {
     height: 60px;
     
+    font-size: 2rem;
     background-color: var(--background-primary);
     border: 4px solid var(--secondary);
     text-align: center;
@@ -162,6 +171,7 @@
 
 body {
     margin: 0px;
-
+    
+    font-family: timesNewRoman;
     background-color: var(--background-primary);
 }
