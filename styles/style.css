@@ -2,76 +2,90 @@
 /* Header */
 
 #headerBackground {
+    display: flex;
+
     width: 100vw;
     height: 50px;
-    background-color: black;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+
+    background-color: black; 
 }
 
 #headerContent {
-    color: white;
-    margin: auto;
-    text-align: center;
     display: inline-block;
+
+    margin: auto;
+
+    color: white;
+    text-align: center;
 }
 
 /* "body" */
 
 #pageContent {
-    overflow: hidden;
     display: flex;
-    justify-content: center;
+    overflow-x: auto;
+
     height: calc(100vh - 50px);
+    
+    > * {
+		flex: 0 0 auto	
+	}  
 }
 
 .gameList {
     display: flex;
     flex-direction: column;
-    background-color: green;
+    
     width: 300px;
     height: 100%;
-    margin-left: 5vw;
-    margin-right: 10vw;
+    margin-left: auto;
+    margin-right: 200px;
+
+    background-color: green;
+
+    * {
+        box-sizing: border-box;
+		flex: 0 0 auto;	
+	} 
 }
 
 #gameListHeader {
-    box-sizing: border-box;
-    border-bottom: 2px solid black;
-    background-color: aqua;
     height: 60px;
+
+    background-color: aqua;
+    border-bottom: 2px solid black;
 }
 
 #gameListContentContainer {
-    overflow-y: scroll;
-    height: calc(100vh - 110px);
     display: flex;
+    overflow-y: scroll;
     flex-direction: column;
-    background-color: yellow;
     
-    > * {
-
-		flex: 0 0 auto;			
-	}  
+    height: calc(100vh - 110px);
+    padding-bottom: calc(100vh - 190px);
+    
+    background-color: black;
 }
 
 .gameListItem {
     height: 80px;
+
+    background-color: yellow;
     border-bottom: 2px solid black;
 }
 
 .gameDetails {
-    background-color: blue;
     width: 900px;
     height: 100%;
-    margin-right: 5vw;
+    margin-right: auto;
+
+    background-color: blue;
 }
 
 /* Page-wide */
 
 body {
-    background-color: gray;
     margin: 0px;
-    width: 100vw;
+
+    background-color: gray;
 }
