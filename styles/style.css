@@ -9,6 +9,17 @@
     --tertiary: #2dee33;   
 }
 
+/* Animations */
+
+@keyframes growOnHover {
+	from {
+		height: 80px;
+	}
+	to {
+		height: 100px ;
+	}
+}
+
 
 
 /* Header */
@@ -82,18 +93,22 @@
 
 #gameListContentContainer {
     display: flex;
-    overflow-y: scroll;
+    overflow-x: hidden;
     flex-direction: column;
     
     height: calc(100vh - 140px);
     min-height: 400px;
-    padding-bottom: calc(100vh - 190px);
+    padding-top: 4px;
+    padding-bottom: calc(100vh - 190px); 
     padding-left: 8px;
 
     background-color: var(--background-primary);
-    scrollbar-color: var(--primary) var(--background-primary);
+    box-sizing: border-box;
+    border: 8px double var(--secondary);
+    border-top: none;
+    border-bottom: 4px solid var(--secondary); 
+    scrollbar-color: var(--background-primary) var(--background-primary);
     scrollbar-width: thin;
-    border-bottom: 4px solid var(--secondary);
     
 }
 
@@ -101,7 +116,33 @@
     height: 80px;
 
     background-color: var(--tertiary);
+    background-position: center;
+    background-repeat: no-repeat;
     border-bottom: 4px solid var(--background-primary);
+
+    text-align: center;
+    padding: 20px;
+
+    transition: height 0.8s, background-color 0.4s;
+}
+
+.gameListItem:hover {
+    height: 100px;
+
+    background-color: var(--primary);
+
+    transition: height 0.4s, background-color 0.2s;
+}
+
+#splatoonListing {
+    background-image: url(../images/gameBanners/splatoon.png);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 70%;
+}
+
+#discoElysiumListing {
+    background-image: url(../images/gameBanners/discoElysium.png);
 }
 
 .gameDetails {
