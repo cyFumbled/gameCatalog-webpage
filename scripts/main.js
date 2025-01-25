@@ -15,16 +15,42 @@ for (let game of gameListings) {
 }
 
 
+function fetchJSONData() {
+    fetch("http://127.0.0.1:9999/scripts/headerFiller.json")
+        .then((res) => {
+            if (!res.ok) {
+                throw new Error
+                    (`HTTP error! Status: ${res.status}`);
+            }
+            return res.json();
+        })
+        .then((data) =>
+            console.log(data))
+        .catch((error) =>
+            console.error("Unable to fetch data:", error));
+}
+fetchJSONData();
+
+
+
 function listingClicked (selectedGame) {
     for (let i of listingHeader.classList) {
         listingHeader.classList.remove(i);
     }
     console.log(selectedGame + " selected.")
-    let selectedGameDetails = document.getElementById(selectedGame + 'Details');
+
+    let selectedGameDetails;
+    if (!document.getElementById(selectedGame + 'Details')) {
+        selectedGameDetails = document.getElementById('missingDetails');
+    }
+    else {
+        selectedGameDetails = document.getElementById(selectedGame + 'Details');
+    }
+
+    if (activeGame == "disco Elysium") document.getElementById("discoElysiumVideo").pause();
 
     if (activeGame === selectedGame) {
         selectedGameDetails.style.display = "none";
-        selectedGameDetails.classList.remove("animation-detailHeightRender");
 
         listingHeader.classList.add("animation-gameListHeaderFade")
 
@@ -34,11 +60,15 @@ function listingClicked (selectedGame) {
     }
     
     if (activeGame) {
+        if (document.getElementById(activeGame + 'Details')) {
         document.getElementById(activeGame + 'Details').style.display = "none";
+        } 
+        else {
+            document.getElementById('missingDetails').style.display= "none";
+        }
     }
 
     // Display Selected Game Details
-    selectedGameDetails.classList.add("animation-detailHeightRender");
     selectedGameDetails.style.display = "block";
     activeGame = selectedGame;
     setTimeout(() => {listingHeader.classList.add("animation-gameListHeaderFlash")},10)

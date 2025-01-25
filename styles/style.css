@@ -12,6 +12,7 @@
     --background-transparent: rgba(0,0,0,0.9);
     --primary: #ffffff;
     --secondary: #ff00fe;
+    --secondary-shaded: #3a0937;
     --tertiary: #2dee33;   
 }
 
@@ -23,19 +24,6 @@
 }
 
 /* Animations */
-
-.animation-detailHeightRender {
-	animation: detailHeightRender 0.2s linear 0s 1 normal both;
-}
-
-@keyframes detailHeightRender {
-	from {
-		height: 0px;
-	}
-	to {
-		height: 700px;
-	}
-}
 
 .animation-gameListHeaderFlash {
     animation: gameListHeaderFlash 0.25s linear 0s 1 backwards;
@@ -94,7 +82,7 @@
     padding: 0 60px;
 
     line-height: 1.2rem;
-    font-size: 0.8rem;
+    font-size: 1rem;
     color: var(--primary);
     text-align: center;
 }
@@ -141,7 +129,7 @@
     padding-top: 16px;
 
     font-size: 1.5rem;
-    background-color: var(--background-primary);
+    background-color: var(--secondary-shaded);
     border: 4px solid var(--secondary);
     text-align: center;
     color: var(--primary);
@@ -193,6 +181,11 @@
     transition: height 0.4s, background-color 0.2s;
 }
 
+#disco\ ElysiumListing {
+    background-image: url(../images/gameBanners/discoElysium.png);
+    background-size: 80%;
+}
+
 #splatoonListing {
     background-image: url(../images/gameBanners/splatoon.png);
     background-position: center;
@@ -200,9 +193,18 @@
     background-size: 70%;
 }
 
-#disco\ ElysiumListing {
-    background-image: url(../images/gameBanners/discoElysium.png);
-    background-size: 80%;
+#regretevatorListing {
+    background-image: url(../images/gameBanners/regretevator.png);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 90%;
+}
+
+#bomblineListing {
+    background-image: url(../images/gameBanners/bombline.png);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 90%;
 }
 
 .gameDetails {
@@ -221,10 +223,20 @@
     background: var(--background-transparent);
     border: 8px solid var(--primary);
     box-sizing: border-box;
+    scrollbar-color: var(--background) var(--background-primary);
+    
+    > * {
+        color: var(--primary);
+        display: none;
+    }
+}
+
+#discoElysiumVideo {
+    border: 8px ridge #ffffff;
+    box-sizing: border-box;
 }
 
 #splatoonDetails {
-    display: none;
     overflow: hidden;
     
     height: auto;
@@ -243,4 +255,11 @@ body {
     
     font-family: timesNewRoman;
     background-color: var(--background-primary);
+}
+
+td {
+    padding: 0.4rem;
+    border-top: 2px solid #ffffff;
+    font-size: 1.1rem;
+    width: 120px;
 }
