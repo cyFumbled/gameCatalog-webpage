@@ -66,6 +66,7 @@
 
 #headerBackground {
     display: flex;
+    align-items: left;
 
     width: 100vw;
     height: 50px;
@@ -85,6 +86,50 @@
     font-size: 1rem;
     color: var(--primary);
     text-align: center;
+}
+
+#headerMenuButton {
+    position: relative;
+
+    width: 3vw;
+    height: 50px;
+    padding: auto;
+
+    text-align: center;
+    user-select: none;
+    line-height: 50px;
+    color: var(--primary);
+    font-size: 2rem;
+    cursor: pointer;
+}
+
+#headerMenuButton:hover {
+    color: var(--tertiary);
+}
+
+#headerMenuContent{
+    display: none;
+
+    height: 50px;
+
+    text-align: center;
+    user-select: none;
+    line-height: 50px;
+    color: var(--primary);
+    font-size: 2rem;
+
+    > * {
+        display: inline;
+
+        margin-left: 0.25rem;
+        margin-right: 0.5rem;
+
+        cursor: pointer;
+    }
+
+    > *:hover {
+        color: var(--tertiary);
+    }
 }
 
 /* "body" */
@@ -110,10 +155,10 @@
     flex-direction: column;
     
     width: 300px;
-    height: calc(100vh - 80px);
+    height: calc(100vh - 92px);
     margin-left: auto;
     margin-right: 200px;
-    margin-top: 12px;
+    margin-top: 16px;
     margin-bottom: 16px;
 
     background-color: var(--background-primary);
@@ -142,7 +187,7 @@
     overflow-x: hidden;
     flex-direction: column;
     
-    height: calc(100vh - 140px);
+    height: calc(100vh - 148px);
     min-height: 400px;
     padding-top: 4px;
     padding-bottom: calc(100vh - 190px); 
@@ -213,15 +258,16 @@
     overflow-x: hidden;
 
     width: 900px;
-    height: calc(100% - 24px);
+    height: calc(100% - 40px);
     min-height: 400px;
     margin-right: auto;
-    margin-top: 12px;
-    margin-bottom: 12px;
+    margin-top: 16px;
+    margin-bottom: 16px;
     padding: 1rem;
 
     background: var(--background-transparent);
     border: 8px solid var(--primary);
+    border-radius: 8px;
     box-sizing: border-box;
     scrollbar-color: var(--background) var(--background-primary);
     

@@ -1,8 +1,29 @@
 "use strict";
 
+// npx http-server -o -p 9999
+// taskkill /f /im node.exe
+
+
 let currentShowingDetails;
 let activeGame;
-const listingHeader = document.getElementById("gameListHeader")
+
+// Header Menu Button
+
+const headerMenuButton = document.getElementById('headerMenuButton')
+const headerMenuContent = document.getElementById('headerMenuContent')
+
+headerMenuButton.addEventListener("click", () => {
+    if (headerMenuButton.textContent === "≡") {
+        headerMenuButton.textContent = "✖";
+        headerMenuContent.style.display = "block";
+        headerMenuContent.style.font-size = "1.5rem";
+    } else {
+        headerMenuButton.textContent = "≡"
+        headerMenuContent.style.display = "none"
+        headerMenuContent.style.font-size = "2rem";
+    }
+})
+
 const gameListings = document.getElementsByClassName('gameListing')
 
 console.log(gameListings)
@@ -14,8 +35,8 @@ for (let game of gameListings) {
       });
 }
 
-
-function fetchJSONData() {
+/*
+function randomizeHeaderContent() {
     fetch("http://127.0.0.1:9999/scripts/headerFiller.json")
         .then((res) => {
             if (!res.ok) {
@@ -24,14 +45,18 @@ function fetchJSONData() {
             }
             return res.json();
         })
-        .then((data) =>
-            console.log(data))
+        .then((res) => {
+            
+        document.getElementById("headerContent").textContent = res[Math.floor(Math.random() * res.length)];
+
+        })
         .catch((error) =>
             console.error("Unable to fetch data:", error));
 }
-fetchJSONData();
+randomizeHeaderContent();
+*/
 
-
+const listingHeader = document.getElementById('gameListHeader')
 
 function listingClicked (selectedGame) {
     for (let i of listingHeader.classList) {
@@ -46,8 +71,6 @@ function listingClicked (selectedGame) {
     else {
         selectedGameDetails = document.getElementById(selectedGame + 'Details');
     }
-
-    if (activeGame == "disco Elysium") document.getElementById("discoElysiumVideo").pause();
 
     if (activeGame === selectedGame) {
         selectedGameDetails.style.display = "none";
