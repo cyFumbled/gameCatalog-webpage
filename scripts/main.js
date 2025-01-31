@@ -16,11 +16,11 @@ headerMenuButton.addEventListener("click", () => {
     if (headerMenuButton.textContent === "≡") {
         headerMenuButton.textContent = "✖";
         headerMenuContent.style.display = "block";
-        headerMenuContent.style.font-size = "1.5rem";
+        headerMenuContent.style["font-size"] = "1.5rem";
     } else {
         headerMenuButton.textContent = "≡"
         headerMenuContent.style.display = "none"
-        headerMenuContent.style.font-size = "2rem";
+        headerMenuContent.style["font-size"] = "2rem";
     }
 })
 
@@ -35,34 +35,22 @@ for (let game of gameListings) {
       });
 }
 
-/*
-function randomizeHeaderContent() {
-    fetch("http://127.0.0.1:9999/scripts/headerFiller.json")
-        .then((res) => {
-            if (!res.ok) {
-                throw new Error
-                    (`HTTP error! Status: ${res.status}`);
-            }
-            return res.json();
-        })
-        .then((res) => {
-            
-        document.getElementById("headerContent").textContent = res[Math.floor(Math.random() * res.length)];
+let scheduledHeaderTitle;
 
-        })
-        .catch((error) =>
-            console.error("Unable to fetch data:", error));
-}
-randomizeHeaderContent();
-*/
-
-const listingHeader = document.getElementById('gameListHeader')
-
-function listingClicked (selectedGame) {
-    for (let i of listingHeader.classList) {
-        listingHeader.classList.remove(i);
-    }
+function listingClicked(selectedGame) { 
     console.log(selectedGame + " selected.")
+    let listingHeader = document.getElementById('gameListHeader');
+
+    // FLASH HEADER
+    setTimeout(() => {
+        listingHeader.classList.remove("animation-gameListHeaderFlash");
+        listingHeader.offsetHeight;
+        listingHeader.classList.add("animation-gameListHeaderFlash")
+    },0);
+
+
+    // DISPLAY HEADER TEXT (GAME TITLE)
+    listingHeader.textContent = selectedGame.toUpperCase();
 
     let selectedGameDetails;
     if (!document.getElementById(selectedGame + 'Details')) {
@@ -72,16 +60,17 @@ function listingClicked (selectedGame) {
         selectedGameDetails = document.getElementById(selectedGame + 'Details');
     }
 
+    // IF THE GAME WAS ALREADY PRESENT, HIDE DETAILS, FADE, AND RETURN.
     if (activeGame === selectedGame) {
         selectedGameDetails.style.display = "none";
-
         listingHeader.classList.add("animation-gameListHeaderFade")
 
         activeGame = false;
-        setTimeout(() => {listingHeader.textContent = ""},300)
         return
     }
+    listingHeader.classList.remove("animation-gameListHeaderFade")
     
+    // IF A GAME WAS PRESENT, HIDE THEIR DETAILS
     if (activeGame) {
         if (document.getElementById(activeGame + 'Details')) {
         document.getElementById(activeGame + 'Details').style.display = "none";
@@ -91,9 +80,7 @@ function listingClicked (selectedGame) {
         }
     }
 
-    // Display Selected Game Details
+    // DISPLAY SELECTED GAME DETAILS
     selectedGameDetails.style.display = "block";
     activeGame = selectedGame;
-    setTimeout(() => {listingHeader.classList.add("animation-gameListHeaderFlash")},10)
-    setTimeout(() => {listingHeader.textContent = selectedGame.toUpperCase()},200)
 };

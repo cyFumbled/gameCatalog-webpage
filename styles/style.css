@@ -1,7 +1,7 @@
 * {
     margin: 0;
     padding: 0;
-  }
+}
 
 
 /* Global Variables */
@@ -26,30 +26,31 @@
 /* Animations */
 
 .animation-gameListHeaderFlash {
-    animation: gameListHeaderFlash 0.25s linear 0s 1 backwards;
+    animation: gameListHeaderFlash 0.25s linear 0s 1 both;
 }
+
 
 @keyframes gameListHeaderFlash {
     0% {
-        background: var(--background-primary);
+        background: var(--secondary-shaded);
         color: var(--primary);
     }
     25% {
         background: var(--primary);
     }
     45% {
-        background: var(--background-primary);
+        background: var(--secondary-shaded);
     }
     70% {
         background: var(--primary);
     }
     100% {
-        background: var(--background-primary);
+        background: var(--secondary-shaded);
     }
 }
 
 .animation-gameListHeaderFade {
-    animation: gameListHeaderFade 0.4s linear 0s 1 none;
+    animation: gameListHeaderFade 0.4s linear 0s 1 forwards;
 }
 
 
@@ -192,6 +193,7 @@
     padding-top: 4px;
     padding-bottom: calc(100vh - 190px); 
     padding-left: 8px;
+    padding-right: 8px;
 
     background-color: var(--background-primary);
     box-sizing: border-box;
