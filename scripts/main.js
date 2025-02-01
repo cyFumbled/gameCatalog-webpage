@@ -3,7 +3,6 @@
 // npx http-server -o -p 9999
 // taskkill /f /im node.exe
 
-
 let currentShowingDetails;
 let activeGame;
 
@@ -37,20 +36,20 @@ for (let game of gameListings) {
 
 let scheduledHeaderTitle;
 
-function listingClicked(selectedGame) { 
+function listingClicked(selectedGame) {
     console.log(selectedGame + " selected.")
     let listingHeader = document.getElementById('gameListHeader');
 
     // FLASH HEADER
+
     setTimeout(() => {
         listingHeader.classList.remove("animation-gameListHeaderFlash");
         listingHeader.offsetHeight;
         listingHeader.classList.add("animation-gameListHeaderFlash")
-    },0);
-
-
+    },0); 
+    
     // DISPLAY HEADER TEXT (GAME TITLE)
-    listingHeader.textContent = selectedGame.toUpperCase();
+    //listingHeader.textContent = selectedGame.toUpperCase();
 
     let selectedGameDetails;
     if (!document.getElementById(selectedGame + 'Details')) {
@@ -84,3 +83,49 @@ function listingClicked(selectedGame) {
     selectedGameDetails.style.display = "block";
     activeGame = selectedGame;
 };
+
+// GAME LIST HEADER
+
+// If any section of the search wrapper is clicked, focus the text input.
+document.getElementById("gameListHeader__searchWrapper").addEventListener("click", () => {
+    document.getElementById("gameListHeader__searchInput").focus();
+})
+
+// When the Enter key is pressed in the Game List search box, activate the nearest showing listing.
+document.getElementById("gameListHeader__searchInput").onkeydown = function(e){
+    var keyCode = e.code || e.key;
+    if (keyCode == 'Enter'){
+        let i = 0;
+        while (true) {
+            if (!document.getElementsByClassName("gameListing")[i]) {
+                break;
+            }
+            if (document.getElementsByClassName("gameListing")[i].style.display !== "none") {
+                listingClicked(document.getElementsByClassName("gameListing")[i].id.slice(0, document.getElementsByClassName("gameListing")[i].id.length - 7))
+                break;
+            }
+            i++;
+        }   
+    }
+  }
+
+// Whenever the text input content is altered, resort the game listings into showing and hiding. 
+document.getElementById("gameListHeader__searchInput").addEventListener("input", () => {
+    console.log("game list query: " + document.getElementById("gameListHeader__searchInput").value);
+    document.getElementById("gameListHeader__searchInput").value = document.getElementById("gameListHeader__searchInput").value.toUpperCase(); 
+
+    setTimeout(() => {
+        let gameListings = document.getElementsByClassName("gameListing");
+        for (let i = 0; i < gameListings.length; i++) {
+            const gameTitle = gameListings[i].id.toUpperCase().slice(0, gameListings[i].id.length - 7).replace(/\s/g, "");
+            const inputValue = document.getElementById("gameListHeader__searchInput").value.toUpperCase().replace(/\s/g, "");
+
+            if (gameTitle.includes(inputValue)) {
+                gameListings[i].style.display = "inline";
+            }
+            else {
+                gameListings[i].style.display = "none";
+            }
+        }
+    },0)
+});
