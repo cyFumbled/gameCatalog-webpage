@@ -91,10 +91,44 @@ document.getElementById("gameListHeader__searchWrapper").addEventListener("click
     document.getElementById("gameListHeader__searchInput").focus();
 })
 
-// When the Enter key is pressed in the Game List search box, activate the nearest showing listing.
+let gameListings__passedThroughQuery = [].slice.call(document.getElementsByClassName("gameListing"));
+let gameListings__passedThroughFilters = [].slice.call(document.getElementsByClassName("gameListing"));
+let gameListings__filtersEnabled = [];
+
+
+async function updateListingDisplays() {
+    console.warn("querypass: " + gameListings__passedThroughQuery)
+    console.warn("filterpass: " + gameListings__passedThroughFilters)
+    for (let i = 0; i < gameListings.length; i++) {
+        if (gameListings__passedThroughQuery.includes(gameListings[i]) && gameListings__passedThroughFilters.includes(gameListings[i])) {
+            gameListings[i].style.display = "inline";
+        }
+        else {
+            gameListings[i].style.display = "none";
+        }
+    }
+
+}
+
 document.getElementById("gameListHeader__searchInput").onkeydown = function(e){
     var keyCode = e.code || e.key;
-    if (keyCode == 'Enter'){
+
+    // When the Shift DEBUG DONT WRITE NOTES PUNK
+    if (keyCode == 'ShiftLeft'){
+        console.log(gameListings__passedThroughFilters)
+        if (!gameListings__filtersEnabled.includes("hasDetails")) {
+            gameListings__filtersEnabled.push("hasDetails");
+            gameListings__passedThroughFilters = [document.getElementById("splatoonListing")]
+        }
+        else {
+            gameListings__filtersEnabled.splice(gameListings__filtersEnabled.indexOf("hasDetails"),1)
+            gameListings__passedThroughFilters = [].slice.call(document.getElementsByClassName("gameListing"))
+        }
+        updateListingDisplays();
+    }
+
+    // When the Enter key is pressed in the Game List search box, activate the nearest showing listing.
+    else if (keyCode == 'Enter'){
         let i = 0;
         while (true) {
             if (!document.getElementsByClassName("gameListing")[i]) {
@@ -107,25 +141,49 @@ document.getElementById("gameListHeader__searchInput").onkeydown = function(e){
             i++;
         }   
     }
-  }
+}
 
 // Whenever the text input content is altered, resort the game listings into showing and hiding. 
 document.getElementById("gameListHeader__searchInput").addEventListener("input", () => {
     console.log("game list query: " + document.getElementById("gameListHeader__searchInput").value);
     document.getElementById("gameListHeader__searchInput").value = document.getElementById("gameListHeader__searchInput").value.toUpperCase(); 
 
-    setTimeout(() => {
-        let gameListings = document.getElementsByClassName("gameListing");
+        console.log("gameListings: " + gameListings[0].id)
         for (let i = 0; i < gameListings.length; i++) {
             const gameTitle = gameListings[i].id.toUpperCase().slice(0, gameListings[i].id.length - 7).replace(/\s/g, "");
             const inputValue = document.getElementById("gameListHeader__searchInput").value.toUpperCase().replace(/\s/g, "");
-
             if (gameTitle.includes(inputValue)) {
-                gameListings[i].style.display = "inline";
+                if (!gameListings__passedThroughQuery.includes(gameListings[i])) {
+                    gameListings__passedThroughQuery.push(gameListings[i])
+                }
             }
             else {
-                gameListings[i].style.display = "none";
+                if (gameListings__passedThroughQuery.includes(gameListings[i])) {
+                    console.log("test splice")
+                    gameListings__passedThroughQuery.splice(gameListings__passedThroughQuery.indexOf(gameListings[i]),1)
+                }
             }
         }
-    },0)
+        updateListingDisplays()
 });
+
+document.getElementById("gameListHeader__filterWrapper").addEventListener("click", () => {
+    let filterIcon_unfocused = document.getElementById("gameListHeader__filterIcon-unfocused");
+    let filterIcon_focused = document.getElementById("gameListHeader__filterIcon-focused");
+    
+    if (filterIcon_unfocused.style.display === "none") {
+        filterIcon_focused.style.display = "none"
+        filterIcon_unfocused.style.display = "inline"
+
+        gameListings__filtersEnabled.splice(gameListings__filtersEnabled.indexOf("hasDetails"),1)
+        gameListings__passedThroughFilters = [].slice.call(document.getElementsByClassName("gameListing"))
+
+    } else {
+        filterIcon_focused.style.display = "inline"
+        filterIcon_unfocused.style.display = "none"
+
+        gameListings__filtersEnabled.push("hasDetails");
+        gameListings__passedThroughFilters = [document.getElementById("splatoonListing")]
+    }
+    updateListingDisplays();
+})

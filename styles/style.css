@@ -180,6 +180,7 @@
 #gameListHeader {
     height: 60px;
     padding-top: 12px;
+    display: flex;
 
     font-size: 1.5rem;
     background-color: var(--secondary-shaded);
@@ -213,15 +214,41 @@
 }
 
 #gameListHeader__searchInput {
-    height: 24px;
+    height: 20px;
     width: 160px;
 
     margin-left: 6px;
+    margin-top: 2px;
 
     font-family: expose-regular;
     font-size: 1.6rem;
     letter-spacing: 0.18rem; 
     color: var(--primary);
+
+    
+
+}
+
+#gameListHeader__searchInput::selection {
+    color: var(--secondary);
+    background-color: none;
+}
+
+#gameListHeader__filterWrapper {
+    height: 24px;
+
+    margin: 0px auto;
+    margin-top: 4px;
+}
+
+#gameListHeader__filterIcon-unfocused {
+    height: 24px;
+}
+
+#gameListHeader__filterIcon-focused {
+    display: none;
+    
+    height: 24px;
 }
 
 #gameListContentContainer {
@@ -234,7 +261,6 @@
     padding-top: 4px;
     padding-bottom: calc(100vh - 190px); 
     padding-left: 8px;
-    padding-right: 8px;
 
     background-color: var(--background-primary);
     box-sizing: border-box;
@@ -259,6 +285,7 @@
     cursor: pointer;
 
     transition: height 0.8s, background-color 0.4s;
+
 }
 
 .gameListing:hover {
