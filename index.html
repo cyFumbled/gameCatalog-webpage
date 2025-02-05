@@ -28,16 +28,31 @@
     <div id="pageContent">
 
         <div id="gameList">
-            <div id="gameListHeader">
+          <div id="gameListHeader__root">
+            <div id="gameListHeader__topRowWrapper">
+
               <div id="gameListHeader__searchWrapper">
-                <img id="gameListHeader__searchIcon" src="images/icons/searchIcon.png">
-                <input id="gameListHeader__searchInput" type="search" autofocus>
+                  <img id="gameListHeader__searchIcon" src="images/icons/searchIcon.png">
+                  <input id="gameListHeader__searchInput" type="search" autofocus>
               </div>
+
               <div id ="gameListHeader__filterWrapper">
                 <img id="gameListHeader__filterIcon-unfocused" src="images/icons/filterIcon-unfocused.png">
                 <img id="gameListHeader__filterIcon-focused" src="images/icons/filterIcon-focused.png">
-                </div>
+              </div>  
+
             </div>
+            <div id="gameListHeader__expandedWrapper">
+              <div class="gameListHeader__filter">
+                <label class="switch">
+                  <input type="checkbox" class="gameListHeader__filterCheckbox" id="gameListHeader__hasDetailsCheckbox" >
+                  <div class="slider"></div>
+                </label>
+                <p class="gameListHeader_filterLabel">ONLY GAMES WITH POSTS</p>
+              </div>
+            </div>
+          </div>
+
             <div id="gameListContentContainer">
                 <div class="gameListing" id="disco ElysiumListing"></div>
                 <div class="gameListing" id="splatoonListing"></div>
@@ -47,8 +62,8 @@
         </div>
 
         
-        <div class="gameDetails">
-            <div id="splatoonDetails">
+        <div id="gameDetails">
+              <div id="splatoonDetails">
                 <p> Current Main:<br>
                     - Custom Explosher (3 Star)<br><br>
                     Secondary Mains:<br>
@@ -62,7 +77,7 @@
                     Played Since:<br>
                     - Early October 2022<br><br>
                     Past Teams:<br>
-                    - Paradox (Div-less)<br><br>
+                    - No longer disclosing this.<br><br>
                     Past ranks:<br><br>
                         
                         <table id="splatoonStatsTable">
@@ -97,10 +112,10 @@
 
           
                     </table><br>
-            </div>
-            <div id="missingDetails">
-              THERE'S NOTHING HERE.
-            </div>
+              </div>
+              <div id="missingDetails">
+                THERE'S NOTHING HERE.
+          </div>
         </div>
 
     </div>

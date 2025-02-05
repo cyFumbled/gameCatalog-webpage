@@ -38,15 +38,9 @@ let scheduledHeaderTitle;
 
 function listingClicked(selectedGame) {
     console.log(selectedGame + " selected.")
-    let listingHeader = document.getElementById('gameListHeader');
+    let listingHeader = document.getElementById('gameListHeader__topRowWrapper');
 
-    // FLASH HEADER
-
-    setTimeout(() => {
-        listingHeader.classList.remove("animation-gameListHeaderFlash");
-        listingHeader.offsetHeight;
-        listingHeader.classList.add("animation-gameListHeaderFlash")
-    },0); 
+    
     
     // DISPLAY HEADER TEXT (GAME TITLE)
     //listingHeader.textContent = selectedGame.toUpperCase();
@@ -61,6 +55,7 @@ function listingClicked(selectedGame) {
 
     // IF THE GAME WAS ALREADY PRESENT, HIDE DETAILS, FADE, AND RETURN.
     if (activeGame === selectedGame) {
+        listingHeader.classList.remove("animation-gameListHeaderFlash");
         selectedGameDetails.style.display = "none";
         listingHeader.classList.add("animation-gameListHeaderFade")
 
@@ -78,6 +73,14 @@ function listingClicked(selectedGame) {
             document.getElementById('missingDetails').style.display= "none";
         }
     }
+
+    // FLASH HEADER
+
+    setTimeout(() => {
+        listingHeader.classList.remove("animation-gameListHeaderFlash");
+        listingHeader.offsetHeight;
+        listingHeader.classList.add("animation-gameListHeaderFlash")
+    },0); 
 
     // DISPLAY SELECTED GAME DETAILS
     selectedGameDetails.style.display = "block";
@@ -170,20 +173,42 @@ document.getElementById("gameListHeader__searchInput").addEventListener("input",
 document.getElementById("gameListHeader__filterWrapper").addEventListener("click", () => {
     let filterIcon_unfocused = document.getElementById("gameListHeader__filterIcon-unfocused");
     let filterIcon_focused = document.getElementById("gameListHeader__filterIcon-focused");
-    
+    const header = document.getElementById("gameListHeader__root");
+    const list = document.getElementById("gameListContentContainer");
+    const expandedHeader = document.getElementById("gameListHeader__expandedWrapper");
+
+
     if (filterIcon_unfocused.style.display === "none") {
-        filterIcon_focused.style.display = "none"
-        filterIcon_unfocused.style.display = "inline"
-
-        gameListings__filtersEnabled.splice(gameListings__filtersEnabled.indexOf("hasDetails"),1)
-        gameListings__passedThroughFilters = [].slice.call(document.getElementsByClassName("gameListing"))
-
+        filterIcon_focused.style.display = "none";
+        filterIcon_unfocused.style.display = "inline";
+        header.style.height = "60px";
+        list.style["padding-bottom"] = "calc(100vh - 190px)";
+        expandedHeader.style.display= "none";
     } else {
         filterIcon_focused.style.display = "inline"
         filterIcon_unfocused.style.display = "none"
+        header.style.height = "100px";
+        list.style["padding-bottom"] = "calc(100vh - 230px)"
+        expandedHeader.style.display= "flex";
+    }
+})
 
+document.getElementById("gameListHeader__hasDetailsCheckbox").checked = true;
+
+gameListings__filtersEnabled.push("hasDetails");
+gameListings__passedThroughFilters = [document.getElementById("splatoonListing")]
+updateListingDisplays();
+
+
+document.getElementById("gameListHeader__hasDetailsCheckbox").addEventListener("change", () => {
+    console.log(document.getElementById("gameListHeader__hasDetailsCheckbox").checked)
+    if (document.getElementById("gameListHeader__hasDetailsCheckbox").checked) {
         gameListings__filtersEnabled.push("hasDetails");
         gameListings__passedThroughFilters = [document.getElementById("splatoonListing")]
+    }
+    else {
+        gameListings__filtersEnabled.splice(gameListings__filtersEnabled.indexOf("hasDetails"),1)
+        gameListings__passedThroughFilters = [].slice.call(document.getElementsByClassName("gameListing"))
     }
     updateListingDisplays();
 })
