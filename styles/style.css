@@ -163,8 +163,8 @@
     flex-direction: column;
     
     width: 300px;
-    height: calc(100vh - 92px);
-    margin-left: auto;
+    height: calc(100vh - 96px);
+    margin-left: max(40px, calc((100vw - 1400px) / 2));
     margin-right: 200px;
     margin-top: 16px;
     margin-bottom: 16px;
@@ -238,7 +238,7 @@
     height: 30px;
 
     margin: 0px auto;
-    padding: 2px 4px;
+    padding: 4px 4px;
 
     background-color: rgba(0,0,0,0.5);
     border: 2px solid rgba(219, 81, 253, 0.5);
@@ -278,10 +278,13 @@
 .gameListHeader_filterLabel {
     margin-top: 2px;
 
+    user-select: none;
     color: var(--primary);
     font-family: 'Times New Roman', Times, serif;
     font-size: 1rem;
 }
+
+/* Filter swtich */
 
 .switch {
     position: relative;
@@ -354,7 +357,7 @@
     height: 20px;
     min-height: 200px;
     padding-top: 8px;
-    padding-bottom: calc(100vh - 190px); 
+    padding-bottom: calc(100vh - 164px); 
     padding-left: 8px;
     padding-right: 8px;
 
@@ -423,34 +426,65 @@
 
 /* Game Details */
 
-#gameDetails {
+#gameDetails__rootWrapper {
+    display: flexbox;
+
+    width: 900px;
+    height: calc(100vh - 92px);
+    min-height: 264px;
+    margin-right: max(40px, calc((100vw - 1400px) / 2));
+    margin-top: 16px;
+    margin-bottom: 16px;
+
+    background-color: var(--background-transparent);
+    border: 4px solid var(--secondary);
+    box-sizing: border-box;
+
+    * {
+        box-sizing: border-box;
+		flex: 0 0 auto;	
+	} 
+}
+
+#gameDetails__header {
+    display: flex;
+    height: 56px;
+
+    background-color: var(--secondary-shaded);
+    border-bottom: 4px solid var(--secondary);
+}
+
+#gameDetails__title {
+    margin-top: auto;
+    margin-left: 0.4rem;
+    margin-bottom: auto;
+    transform: translateY(-0.6rem);
+
+    color: var(--primary);
+    font-family: expose-regular;
+    font-size: 6.5rem;
+    letter-spacing: 0.3rem;
+    line-height: 0%;
+
+}
+
+#gameDetails__content {
     display: flexbox;
     overflow-y: auto;
     overflow-x: hidden;
 
-    width: 900px;
-    height: calc(100% - 40px);
-    min-height: 400px;
-    margin-right: auto;
-    margin-top: 16px;
-    margin-bottom: 16px;
+    width: 100%;
+    height: calc(100% - 60px);
+    min-height: 200px;
     padding: 1rem;
 
     background: var(--background-transparent);
-    border: 8px solid var(--primary);
-    border-radius: 8px;
-    box-sizing: border-box;
     scrollbar-color: var(--background) var(--background-primary);
     
     > * {
         color: var(--primary);
         display: none;
     }
-}
-
-#discoElysiumVideo {
-    border: 8px ridge #ffffff;
-    box-sizing: border-box;
 }
 
 #splatoonDetails {

@@ -38,12 +38,7 @@ let scheduledHeaderTitle;
 
 function listingClicked(selectedGame) {
     console.log(selectedGame + " selected.")
-    let listingHeader = document.getElementById('gameListHeader__topRowWrapper');
-
-    
-    
-    // DISPLAY HEADER TEXT (GAME TITLE)
-    //listingHeader.textContent = selectedGame.toUpperCase();
+    let detailsHeader = document.getElementById('gameDetails__header');
 
     let selectedGameDetails;
     if (!document.getElementById(selectedGame + 'Details')) {
@@ -53,16 +48,17 @@ function listingClicked(selectedGame) {
         selectedGameDetails = document.getElementById(selectedGame + 'Details');
     }
 
-    // IF THE GAME WAS ALREADY PRESENT, HIDE DETAILS, FADE, AND RETURN.
+    // IF THE GAME WAS ALREADY PRESENT, HIDE DETAILS, FADE, WIPE TITLE, AND RETURN.
     if (activeGame === selectedGame) {
-        listingHeader.classList.remove("animation-gameListHeaderFlash");
+        detailsHeader.classList.remove("animation-gameListHeaderFlash");
         selectedGameDetails.style.display = "none";
-        listingHeader.classList.add("animation-gameListHeaderFade")
+        detailsHeader.classList.add("animation-gameListHeaderFade")
+        document.getElementById("gameDetails__title").textContent = null;
 
         activeGame = false;
         return
     }
-    listingHeader.classList.remove("animation-gameListHeaderFade")
+    detailsHeader.classList.remove("animation-gameListHeaderFade")
     
     // IF A GAME WAS PRESENT, HIDE THEIR DETAILS
     if (activeGame) {
@@ -77,10 +73,13 @@ function listingClicked(selectedGame) {
     // FLASH HEADER
 
     setTimeout(() => {
-        listingHeader.classList.remove("animation-gameListHeaderFlash");
-        listingHeader.offsetHeight;
-        listingHeader.classList.add("animation-gameListHeaderFlash")
+        detailsHeader.classList.remove("animation-gameListHeaderFlash");
+        detailsHeader.offsetHeight;
+        detailsHeader.classList.add("animation-gameListHeaderFlash")
     },0); 
+
+    // SHOW GAME TITLE ON DETAILS HEADER
+    document.getElementById("gameDetails__title").textContent = selectedGame;
 
     // DISPLAY SELECTED GAME DETAILS
     selectedGameDetails.style.display = "block";
@@ -92,6 +91,13 @@ function listingClicked(selectedGame) {
 // If any section of the search wrapper is clicked, focus the text input.
 document.getElementById("gameListHeader__searchWrapper").addEventListener("click", () => {
     document.getElementById("gameListHeader__searchInput").focus();
+})
+
+document.getElementById("gameListHeader__searchInput").addEventListener("focus", () => {
+    document.getElementById("gameListHeader__searchIcon").style.filter = "brightness(200%)";
+})
+document.getElementById("gameListHeader__searchInput").addEventListener("focusout", () => {
+    document.getElementById("gameListHeader__searchIcon").style.filter = "brightness(100%)";
 })
 
 let gameListings__passedThroughQuery = [].slice.call(document.getElementsByClassName("gameListing"));
@@ -116,22 +122,8 @@ async function updateListingDisplays() {
 document.getElementById("gameListHeader__searchInput").onkeydown = function(e){
     var keyCode = e.code || e.key;
 
-    // When the Shift DEBUG DONT WRITE NOTES PUNK
-    if (keyCode == 'ShiftLeft'){
-        console.log(gameListings__passedThroughFilters)
-        if (!gameListings__filtersEnabled.includes("hasDetails")) {
-            gameListings__filtersEnabled.push("hasDetails");
-            gameListings__passedThroughFilters = [document.getElementById("splatoonListing")]
-        }
-        else {
-            gameListings__filtersEnabled.splice(gameListings__filtersEnabled.indexOf("hasDetails"),1)
-            gameListings__passedThroughFilters = [].slice.call(document.getElementsByClassName("gameListing"))
-        }
-        updateListingDisplays();
-    }
-
     // When the Enter key is pressed in the Game List search box, activate the nearest showing listing.
-    else if (keyCode == 'Enter'){
+    if (keyCode == 'Enter'){
         let i = 0;
         while (true) {
             if (!document.getElementsByClassName("gameListing")[i]) {
@@ -170,6 +162,7 @@ document.getElementById("gameListHeader__searchInput").addEventListener("input",
         updateListingDisplays()
 });
 
+// When the game list filter button is clicked, expand the filter drop down
 document.getElementById("gameListHeader__filterWrapper").addEventListener("click", () => {
     let filterIcon_unfocused = document.getElementById("gameListHeader__filterIcon-unfocused");
     let filterIcon_focused = document.getElementById("gameListHeader__filterIcon-focused");
@@ -177,29 +170,43 @@ document.getElementById("gameListHeader__filterWrapper").addEventListener("click
     const list = document.getElementById("gameListContentContainer");
     const expandedHeader = document.getElementById("gameListHeader__expandedWrapper");
 
-
+    
     if (filterIcon_unfocused.style.display === "none") {
         filterIcon_focused.style.display = "none";
         filterIcon_unfocused.style.display = "inline";
-        header.style.height = "60px";
-        list.style["padding-bottom"] = "calc(100vh - 190px)";
+        header.style.height = null;
+        list.style["padding-bottom"] = "calc(100vh - 164px)";
         expandedHeader.style.display= "none";
     } else {
         filterIcon_focused.style.display = "inline"
         filterIcon_unfocused.style.display = "none"
         header.style.height = "100px";
-        list.style["padding-bottom"] = "calc(100vh - 230px)"
+        list.style["padding-bottom"] = "calc(100vh - 204px)"
         expandedHeader.style.display= "flex";
     }
 })
 
-document.getElementById("gameListHeader__hasDetailsCheckbox").checked = true;
+// Show the user how the filter menu works with automation
+setTimeout(() => { 
+    document.getElementById("gameListHeader__hasDetailsCheckbox").checked = false;
+}, 0)
+setTimeout(() => {
+    document.getElementById("gameListHeader__filterIcon-focused").style.display = "inline"
+    document.getElementById("gameListHeader__filterIcon-unfocused").style.display = "none"
+    document.getElementById("gameListHeader__root").style.height = "100px";
+    document.getElementById("gameListContentContainer").style["padding-bottom"] = "calc(100vh - 204px)"
+    document.getElementById("gameListHeader__expandedWrapper").style.display= "flex";
+}, 400)
+setTimeout(() => {
+    document.getElementById("gameListHeader__hasDetailsCheckbox").checked = true;
 
-gameListings__filtersEnabled.push("hasDetails");
-gameListings__passedThroughFilters = [document.getElementById("splatoonListing")]
-updateListingDisplays();
+    gameListings__filtersEnabled.push("hasDetails");
+    gameListings__passedThroughFilters = [document.getElementById("splatoonListing")]
+    updateListingDisplays();
+}, 800)
 
 
+// When the "only games with details" slider changes position, 
 document.getElementById("gameListHeader__hasDetailsCheckbox").addEventListener("change", () => {
     console.log(document.getElementById("gameListHeader__hasDetailsCheckbox").checked)
     if (document.getElementById("gameListHeader__hasDetailsCheckbox").checked) {
