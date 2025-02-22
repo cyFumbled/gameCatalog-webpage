@@ -3,9 +3,6 @@
 // npx http-server -o -p 9999
 // taskkill /f /im node.exe
 
-let currentShowingDetails;
-let activeGame;
-
 // Header Menu Button
 
 const headerMenuButton = document.getElementById('headerMenuButton')
@@ -34,44 +31,26 @@ for (let game of gameListings) {
       });
 }
 
-let scheduledHeaderTitle;
+let activeGame;
 
 function listingClicked(selectedGame) {
     console.log(selectedGame + " selected.")
     let detailsHeader = document.getElementById('gameDetails__header');
 
-    let selectedGameDetails;
-    if (!document.getElementById(selectedGame + 'Details')) {
-        selectedGameDetails = document.getElementById('missingDetails');
-    }
-    else {
-        selectedGameDetails = document.getElementById(selectedGame + 'Details');
-    }
 
     // IF THE GAME WAS ALREADY PRESENT, HIDE DETAILS, FADE, WIPE TITLE, AND RETURN.
     if (activeGame === selectedGame) {
         detailsHeader.classList.remove("animation-gameListHeaderFlash");
-        selectedGameDetails.style.display = "none";
+        document.getElementById("gameDetails__iframe").style.visibility = "hidden";
         detailsHeader.classList.add("animation-gameListHeaderFade")
         document.getElementById("gameDetails__title").textContent = null;
 
-        activeGame = false;
+        activeGame = null;
         return
     }
     detailsHeader.classList.remove("animation-gameListHeaderFade")
-    
-    // IF A GAME WAS PRESENT, HIDE THEIR DETAILS
-    if (activeGame) {
-        if (document.getElementById(activeGame + 'Details')) {
-        document.getElementById(activeGame + 'Details').style.display = "none";
-        } 
-        else {
-            document.getElementById('missingDetails').style.display= "none";
-        }
-    }
 
     // FLASH HEADER
-
     setTimeout(() => {
         detailsHeader.classList.remove("animation-gameListHeaderFlash");
         detailsHeader.offsetHeight;
@@ -82,7 +61,13 @@ function listingClicked(selectedGame) {
     document.getElementById("gameDetails__title").textContent = selectedGame;
 
     // DISPLAY SELECTED GAME DETAILS
-    selectedGameDetails.style.display = "block";
+    let gamesWithPages = ["splatoon"];
+    if (gamesWithPages.includes(selectedGame)) {
+        document.getElementById("gameDetails__iframe").src = "../detailPages/" + selectedGame + ".html";
+    } else {
+        document.getElementById("gameDetails__iframe").src = "../detailPages/missing.html";
+    }
+    document.getElementById("gameDetails__iframe").style.visibility = "visible";
     activeGame = selectedGame;
 };
 
@@ -205,6 +190,7 @@ setTimeout(() => {
     updateListingDisplays();
 }, 800)
 
+document.getElementById("gameDetails__iframe").style.visibility = "hidden";
 
 // When the "only games with details" slider changes position, 
 document.getElementById("gameListHeader__hasDetailsCheckbox").addEventListener("change", () => {
