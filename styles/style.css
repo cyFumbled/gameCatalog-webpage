@@ -250,12 +250,16 @@
 
 #gameListHeader__filterIcon-unfocused {
     height: 20px;
+    margin-top: 2px;
+
 }
 
 #gameListHeader__filterIcon-focused {
     display: none;
     
     height: 20px;
+    
+    margin-top: 2px;
 }
 
 /* filter List */
@@ -422,6 +426,13 @@
     background-position: center;
     background-repeat: no-repeat;
     background-size: 90%;
+}
+
+#post\ VoidListing {
+    background-image: url(../images/gameBanners/postVoid.png);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 80%;
 }
 
 /* Game Details */
