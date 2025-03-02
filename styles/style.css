@@ -435,6 +435,13 @@
     background-size: 80%;
 }
 
+#mroi_Listing {
+    background-image: url(../images/gameBanners/mroi_.png);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 90%;
+}
+
 /* Game Details */
 
 #gameDetails__rootWrapper {
