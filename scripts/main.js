@@ -58,7 +58,7 @@ function listingClicked(selectedGame) {
     },0); 
 
     // SHOW GAME TITLE ON DETAILS HEADER
-    document.getElementById("gameDetails__title").textContent = selectedGame;
+    document.getElementById("gameDetails__title").textContent = document.getElementById(selectedGame + "Listing").title;
 
     // DISPLAY SELECTED GAME DETAILS
     let gamesWithPages = ["splatoon"];

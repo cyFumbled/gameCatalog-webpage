@@ -250,7 +250,6 @@
 
 #gameListHeader__filterIcon-unfocused {
     height: 20px;
-    margin-top: 2px;
 
 }
 
@@ -258,8 +257,6 @@
     display: none;
     
     height: 20px;
-    
-    margin-top: 2px;
 }
 
 /* filter List */
@@ -326,7 +323,7 @@
   .slider:before {
     position: absolute;
     
-    height: 16px;
+    height: 14px;
     width: 16px;
     left: 4px;
     bottom: 3px;
@@ -478,7 +475,7 @@
 
     color: var(--primary);
     font-family: expose-regular;
-    font-size: 6.5rem;
+    font-size: 5rem;
     letter-spacing: 0.3rem;
     line-height: 0%;
     user-select: none;
