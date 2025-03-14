@@ -36,18 +36,26 @@ let activeGame;
 function listingClicked(selectedGame) {
     console.log(selectedGame + " selected.")
     let detailsHeader = document.getElementById('gameDetails__header');
-
+    let gamesWithPages = ["splatoon3"];
 
     // IF THE GAME WAS ALREADY PRESENT, HIDE DETAILS, FADE, WIPE TITLE, AND RETURN.
     if (activeGame === selectedGame) {
         detailsHeader.classList.remove("animation-gameListHeaderFlash");
-        document.getElementById("gameDetails__iframe").style.visibility = "hidden";
+        document.getElementById(selectedGame + "__iframe").style.display = "none";
         detailsHeader.classList.add("animation-gameListHeaderFade")
         document.getElementById("gameDetails__title").textContent = null;
 
         activeGame = null;
         return
     }
+
+    // HIDE PREVIOUS DETAILS
+    if (gamesWithPages.includes(activeGame)) {
+        document.getElementById(activeGame + "__iframe").style.display = "none";
+    } else if (document.getElementById("missing__iframe").style !== "none") {
+        document.getElementById("missing__iframe").style.display = "none";
+    }
+
     detailsHeader.classList.remove("animation-gameListHeaderFade")
 
     // FLASH HEADER
@@ -61,13 +69,11 @@ function listingClicked(selectedGame) {
     document.getElementById("gameDetails__title").textContent = document.getElementById(selectedGame + "Listing").title;
 
     // DISPLAY SELECTED GAME DETAILS
-    let gamesWithPages = ["splatoon3"];
     if (gamesWithPages.includes(selectedGame)) {
-        document.getElementById("gameDetails__iframe").src = "../detailPages/" + selectedGame + ".html";
+        document.getElementById(selectedGame + "__iframe").style.display = "block";
     } else {
-        document.getElementById("gameDetails__iframe").src = "../detailPages/missing.html";
+        document.getElementById("missing__iframe").style.display = "block";
     }
-    document.getElementById("gameDetails__iframe").style.visibility = "visible";
     activeGame = selectedGame;
 };
 
@@ -189,8 +195,6 @@ setTimeout(() => {
     gameListings__passedThroughFilters = [document.getElementById("splatoon3Listing")]
     updateListingDisplays();
 }, 800)
-
-document.getElementById("gameDetails__iframe").style.visibility = "hidden";
 
 // When the "only games with details" slider changes position, 
 document.getElementById("gameListHeader__hasDetailsCheckbox").addEventListener("change", () => {

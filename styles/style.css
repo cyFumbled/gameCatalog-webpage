@@ -499,6 +499,10 @@
     box-sizing: border-box;
 }
 
+.gameDetails_iframe {
+    display: none;
+}
+
 .gameDetails__standardInfo__root {
     display: flex;
 
@@ -549,6 +553,7 @@
 }
 
 #missingDetails {
+    overflow-x: hidden;
     padding: 1rem;
 
     background: transparent;
