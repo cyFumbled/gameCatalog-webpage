@@ -61,7 +61,7 @@ function listingClicked(selectedGame) {
     document.getElementById("gameDetails__title").textContent = document.getElementById(selectedGame + "Listing").title;
 
     // DISPLAY SELECTED GAME DETAILS
-    let gamesWithPages = ["splatoon"];
+    let gamesWithPages = ["splatoon3"];
     if (gamesWithPages.includes(selectedGame)) {
         document.getElementById("gameDetails__iframe").src = "../detailPages/" + selectedGame + ".html";
     } else {
@@ -186,7 +186,7 @@ setTimeout(() => {
     document.getElementById("gameListHeader__hasDetailsCheckbox").checked = true;
 
     gameListings__filtersEnabled.push("hasDetails");
-    gameListings__passedThroughFilters = [document.getElementById("splatoonListing")]
+    gameListings__passedThroughFilters = [document.getElementById("splatoon3Listing")]
     updateListingDisplays();
 }, 800)
 
@@ -197,7 +197,7 @@ document.getElementById("gameListHeader__hasDetailsCheckbox").addEventListener("
     console.log(document.getElementById("gameListHeader__hasDetailsCheckbox").checked)
     if (document.getElementById("gameListHeader__hasDetailsCheckbox").checked) {
         gameListings__filtersEnabled.push("hasDetails");
-        gameListings__passedThroughFilters = [document.getElementById("splatoonListing")]
+        gameListings__passedThroughFilters = [document.getElementById("splatoon3Listing")]
     }
     else {
         gameListings__filtersEnabled.splice(gameListings__filtersEnabled.indexOf("hasDetails"),1)

@@ -404,11 +404,11 @@
     background-size: 80%;
 }
 
-#splatoonListing {
-    background-image: url(../images/gameBanners/splatoon.png);
+#splatoon3Listing {
+    background-image: url(../images/gameBanners/splatoon3.png);
     background-position: center;
     background-repeat: no-repeat;
-    background-size: 70%;
+    background-size: 50%;
 }
 
 #regretevatorListing {
@@ -445,6 +445,7 @@
     display: flexbox;
 
     width: 900px;
+    min-width: 900px;
     height: calc(100vh - 92px);
     min-height: 264px;
     margin-right: max(40px, calc((100vw - 1400px) / 2));
@@ -498,15 +499,44 @@
     box-sizing: border-box;
 }
 
-#splatoonDetails {
+.gameDetails__standardInfo__root {
+    display: flex;
+
+    border-bottom: var(--secondary) solid 4px;
+}
+
+.gameDetails__standardinfo__coverArt {
+    border-right: var(--secondary) solid 4px
+}
+
+.gameDetails__standardInfo__textContent {
+    width: calc(100% - 144px);
+    display: flex;
+    flex-direction: column;
+    flex: 0 0 auto;
+}
+
+.gameDetails__standardinfo__topHalf {
+    width: 100%;
+    height: calc(50% - 4px);
+
+    border-bottom: var(--secondary) solid 4px;
+}
+
+.gameDetails__standardinfo__bottomHalf {    
+    width: 100%;
+    height: calc(50% - 4px);
+
+    color: var(--primary);
+}
+
+#splatoon3Details {
     overflow: hidden;
 
     transition: height 10s;
 }
 
-#splatoonPage {
-    padding: 1rem;
-
+#splatoon3Page__root {
     background: transparent;
     color: #ffffff;
     font-size: 1.2rem;
@@ -514,13 +544,24 @@
     scrollbar-color: var(--background) var(--background-primary);
 }
 
+#splatoon3Page__content {
+    padding: 1rem;
+}
+
 #missingDetails {
     padding: 1rem;
+
+    background: transparent;
+    color: #ffffff;
+    font-size: 1.2rem;
+    line-height: 1.4rem;
 }
 
 /* Page-wide */
 
 body {
+    min-width:100%;
+    width: 100%;
     margin: 0px;
     
     font-family: timesNewRoman;

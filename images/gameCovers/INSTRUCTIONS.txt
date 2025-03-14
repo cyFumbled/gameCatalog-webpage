@@ -1,0 +1,8 @@
+# GAME COVER DITHER INSTRUCTIONS
+
+site: https://doodad.dev/dither-me-this/
+
+1. Select "COMMODORE 64" preset
+2. Decrease Image Width to 140px
+3. Increase matrix width and height to 4
+4. Download image
