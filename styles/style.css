@@ -494,13 +494,17 @@
 
     background: var(--background-transparent);
     border: 8px double var(--secondary);
-    border-top: 0px;
+    border-top: 4px solid var(--secondary);
     border-bottom: 4px solid var(--secondary);
     box-sizing: border-box;
 }
 
 .gameDetails_iframe {
     display: none;
+}
+
+.gameDetails__pageBody {
+    overflow-x: hidden;
 }
 
 .gameDetails__standardInfo__root {
@@ -510,26 +514,47 @@
 }
 
 .gameDetails__standardinfo__coverArt {
-    border-right: var(--secondary) solid 4px
+    width: 100px;
+    height: 100px;
 }
 
 .gameDetails__standardInfo__textContent {
-    width: calc(100% - 144px);
+    width: calc(100% - 100px);
+    height: 100px;
     display: flex;
     flex-direction: column;
     flex: 0 0 auto;
+
+    * {
+        display: flex;
+        flex-direction: row;
+        flex: 0 0 auto;
+
+        * {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex: 0 0 50%;
+            
+            width: calc(50% - 104px);
+            height: 50px;
+            text-align: center;
+            border-left: var(--secondary) solid 4px;
+            font-size: 1.5rem;
+        }
+    }
 }
 
 .gameDetails__standardinfo__topHalf {
     width: 100%;
-    height: calc(50% - 4px);
+    height: 50%;
 
     border-bottom: var(--secondary) solid 4px;
 }
 
 .gameDetails__standardinfo__bottomHalf {    
     width: 100%;
-    height: calc(50% - 4px);
+    height: 50%;
 
     color: var(--primary);
 }
