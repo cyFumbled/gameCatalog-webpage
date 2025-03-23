@@ -24,8 +24,8 @@
 }
 
 @font-face {
-    font-family: expose-regular;
-    src: url(../fonts/Expose-Regular.otf);
+    font-family: expose-clean;
+    src: url(../fonts/Expose-Clean.otf);
 }
 
 /* Animations */
@@ -223,7 +223,7 @@
     margin-left: 6px;
     margin-top: 2px;
 
-    font-family: expose-regular;
+    font-family: expose-clean;
     font-size: 1.6rem;
     letter-spacing: 0.18rem; 
     color: var(--primary);
@@ -472,13 +472,12 @@
     margin-top: auto;
     margin-left: 0.4rem;
     margin-bottom: auto;
-    transform: translateY(-0.6rem);
+    transform: translateY(-0.9rem);
 
     color: var(--primary);
-    font-family: expose-regular;
-    font-size: 5rem;
+    font-family: expose-clean;
+    font-size: 5.5rem;
     letter-spacing: 0.3rem;
-    line-height: 0%;
     user-select: none;
 
 }
